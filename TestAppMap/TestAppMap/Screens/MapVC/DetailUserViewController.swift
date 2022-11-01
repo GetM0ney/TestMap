@@ -40,9 +40,13 @@ class DetailUserViewController: UIViewController {
   func startTimer() {
     DispatchQueue.main.async {
       self.timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true, block: { timer in
-        self.locationsViewModel?.getLocationData {
-          self.mapView.removeAnnotations(self.mapView.annotations)
-          self.addVehicleAnnotations()
+        self.locationsViewModel?.getLocationData { error in
+          if let error = error {
+            self.showError(error: error)
+          } else {
+            self.mapView.removeAnnotations(self.mapView.annotations)
+            self.addVehicleAnnotations()
+          }
         }
       })
     }

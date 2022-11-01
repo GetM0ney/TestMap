@@ -9,7 +9,6 @@ import UIKit
 import Kingfisher
 
 class UserTableViewCell: UITableViewCell {
-  //контанты добавить
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var avatarImageView: UIImageView?
   
@@ -18,12 +17,10 @@ class UserTableViewCell: UITableViewCell {
   
   var model: User?
   
-  override func awakeFromNib() {
-    super.awakeFromNib()
-  }
-  
   override func prepareForReuse() {
-    //
+    super.prepareForReuse()
+    avatarImageView?.image = nil
+    nameLabel.text = ""
   }
   
   func updateCell() {

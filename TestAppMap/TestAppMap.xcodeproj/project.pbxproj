@@ -157,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				03C22C3629102E1A0020C293 /* ViewModel */,
-				03C22C2E291013CF0020C293 /* Views */,
 				03606A3F29105BBE006EE4C6 /* DetailUserViewController.storyboard */,
 				03C22C04290E64DF0020C293 /* DetailUserViewController.swift */,
 				03606A4B2910A64A006EE4C6 /* VehicleDescriptionViewController.storyboard */,
@@ -173,13 +172,6 @@
 				03C22C38291033CC0020C293 /* UserTableViewCell.xib */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		03C22C2E291013CF0020C293 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		03C22C3529102E0D0020C293 /* ViewModel */ = {

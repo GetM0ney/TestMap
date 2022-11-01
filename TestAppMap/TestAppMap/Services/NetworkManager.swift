@@ -8,6 +8,17 @@
 import Foundation
 class NetworkManager {
   
+  enum RequestsString {
+    case getUsers
+    case getLocations(id: Int)
+    var stringValue: String {
+      switch self {
+        case .getUsers: return "http://mobi.connectedcar360.net/api/?op=list"
+        case .getLocations(id: let id): return "https://mobi.connectedcar360.net/api/?op=getlocations&userid=\(id)"
+      }
+    }
+  }
+  
   /// These are the errors this class might return
   enum ManagerErrors: Error {
     case invalidResponse

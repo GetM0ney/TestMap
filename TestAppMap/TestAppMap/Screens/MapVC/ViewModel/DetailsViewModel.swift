@@ -10,22 +10,30 @@ import MapKit
 
 final class DetailsViewModel {
  
-  var networkManager: NetworkManager?
+  var networkManager: NetworkManager!
   var vehiclesLocationData: [MapObjectData]?
   var usersVehicleData: User?
   var vehiclesWithLocation = [VehicleWithLocation]()
   
-  func getLocationData(completion: @escaping () -> Void) {
+  init(networkManager: NetworkManager!, vehiclesLocationData: [MapObjectData]? = nil, usersVehicleData: User? = nil, vehiclesWithLocation: [VehicleWithLocation] = [VehicleWithLocation]()) {
+    self.networkManager = networkManager
+    self.vehiclesLocationData = vehiclesLocationData
+    self.usersVehicleData = usersVehicleData
+    self.vehiclesWithLocation = vehiclesWithLocation
+  }
+  
+  func getLocationData(completion: @escaping (_ error: Error?) -> Void) {
     guard let userId = usersVehicleData?.userid,
-          let url = URL(string: "https://mobi.connectedcar360.net/api/?op=getlocations&userid=\(userId)"),
+          let url = URL(string: NetworkManager.RequestsString.getLocations(id: userId).stringValue),
           let networkManager = networkManager else { return }
     networkManager.request(fromURL: url) { (result: Result<VehicleLocation, Error>) in
       switch result {
         case .success(let locations):
           self.vehiclesLocationData = locations.data
           self.createVehiclesWithLocation()
-          completion()
+          completion(nil)
         case .failure(let error):
+          completion(error)
           debugPrint("We got a failure trying to get the data. The error we got was: \(error.localizedDescription)")
       }
     }
