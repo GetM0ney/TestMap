@@ -7,9 +7,10 @@
 
 import Foundation
 import UIKit
-
-class UserListViewModel {
-  private var networkManager: NetworkManager = NetworkManager()
+//вынестип лист
+final class UserListViewModel {
+  //иджект
+  var networkManager: NetworkManager = NetworkManager()
   var users: [User]?
   
   func getUsersData(completion: @escaping () -> Void) {
@@ -22,9 +23,7 @@ class UserListViewModel {
         self.users = users.data.filter({ $0.owner != nil })
       } catch {
         debugPrint("Could not translate the data to the requested type. Reason: \(error.localizedDescription)")
-        print(String(describing: error))
       }
-      
     }
   }
   
@@ -37,7 +36,6 @@ class UserListViewModel {
           DataManager.save(list, with: "UserList")
           UserDefaults.standard.set(Date().getDayMonthString(), forKey: "RequestDay")
           completion()
-          
         case .failure(let error):
           debugPrint("We got a failure trying to get the data. The error we got was: \(error.localizedDescription)")
       }

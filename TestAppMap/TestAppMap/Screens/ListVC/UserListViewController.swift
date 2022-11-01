@@ -9,10 +9,10 @@ import UIKit
 
 class UserListViewController: UIViewController {
   
-  var viewModel: UserListViewModel = UserListViewModel()
-  @IBOutlet weak var tableView: UITableView! {
+  var viewModel: UserListViewModel!
+  @IBOutlet private weak var tableView: UITableView! {
     didSet {
-      tableView.register(UINib(nibName: "UserTableViewCell", bundle: nil), forCellReuseIdentifier: "UserTableViewCell")
+      tableView.register(UINib(nibName: UserTableViewCell.nibName, bundle: nil), forCellReuseIdentifier: UserTableViewCell.cellID)
     }
   }
   override func viewDidLoad() {
@@ -49,8 +49,10 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
     guard let user = viewModel.users?[indexPath.row] else { return }
     controller.locationsViewModel = DetailsViewModel()
     controller.locationsViewModel?.usersVehicleData = user
+    controller.locationsViewModel?.networkManager = self.viewModel.networkManager
     controller.locationsViewModel?.getLocationData {
       self.navigationController?.pushViewController(controller, animated: true)
+      //координатор
     }
   }
 }

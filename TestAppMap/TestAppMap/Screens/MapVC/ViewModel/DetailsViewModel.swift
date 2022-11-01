@@ -8,14 +8,17 @@
 import Foundation
 import MapKit
 
-class DetailsViewModel {
-  private var networkManager = NetworkManager()
+final class DetailsViewModel {
+ 
+  var networkManager: NetworkManager?
   var vehiclesLocationData: [MapObjectData]?
   var usersVehicleData: User?
   var vehiclesWithLocation = [VehicleWithLocation]()
   
   func getLocationData(completion: @escaping () -> Void) {
-    guard let userId = usersVehicleData?.userid, let url = URL(string: "https://mobi.connectedcar360.net/api/?op=getlocations&userid=\(userId)") else { return }
+    guard let userId = usersVehicleData?.userid,
+          let url = URL(string: "https://mobi.connectedcar360.net/api/?op=getlocations&userid=\(userId)"),
+          let networkManager = networkManager else { return }
     networkManager.request(fromURL: url) { (result: Result<VehicleLocation, Error>) in
       switch result {
         case .success(let locations):

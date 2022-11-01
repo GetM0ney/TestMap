@@ -80,13 +80,11 @@ class DetailUserViewController: UIViewController {
       case .authorizedAlways:
         mapView.showsUserLocation = true
         locationManager.startUpdatingLocation()
-        break
       case .authorizedWhenInUse:
         mapView.showsUserLocation = true
         locationManager.startUpdatingLocation()
       case .denied:
         showLocationAlert(title: "location usage denied", message: "Enable location", urlString: UIApplication.openSettingsURLString, alertActionTitle: "Settings")
-        break
       case .restricted:
         break
       case .notDetermined:
@@ -122,19 +120,17 @@ extension DetailUserViewController: MKMapViewDelegate {
       markerView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: viewID)
       markerView.canShowCallout = true
       markerView.calloutOffset = CGPoint(x: 0, y: 0)
-      markerView.rightCalloutAccessoryView = UIButton(type: .system)
+      markerView.rightCalloutAccessoryView = UIButton(type: .infoDark)
     }
     return markerView
   }
   
   func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-    
     guard let coordinate = locationManager.location?.coordinate else { return }
     
-    self.mapView.removeOverlays(mapView.overlays)
+    mapView.removeOverlays(mapView.overlays)
     
     let vehicle = view.annotation as! VehicleWithLocation
-    
     let startpoint = MKPlacemark(coordinate: coordinate)
     let endpoint = MKPlacemark(coordinate: vehicle.coordinate)
     
@@ -147,7 +143,7 @@ extension DetailUserViewController: MKMapViewDelegate {
     direction.calculate { responce, error in
       guard let responce = responce else { return }
       responce.routes.forEach { route in
-        self.mapView.addOverlay(route.polyline)
+        mapView.addOverlay(route.polyline)
       }
     }
   }

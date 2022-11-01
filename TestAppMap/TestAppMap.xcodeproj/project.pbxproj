@@ -94,7 +94,7 @@
 			children = (
 				03C22BFC290D59A20020C293 /* Services */,
 				03C22BFB290D59670020C293 /* Model */,
-				03C22BFA290D595A0020C293 /* Sceens */,
+				03C22BFA290D595A0020C293 /* Screens */,
 				03C22BF9290D59380020C293 /* Extensions */,
 				03C22BE2290D59060020C293 /* AppDelegate.swift */,
 				03C22BEE290D59080020C293 /* Assets.xcassets */,
@@ -114,13 +114,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		03C22BFA290D595A0020C293 /* Sceens */ = {
+		03C22BFA290D595A0020C293 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
 				03C22C0F290E72300020C293 /* MapVC */,
 				03C22C0E290E72270020C293 /* ListVC */,
 			);
-			path = Sceens;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		03C22BFB290D59670020C293 /* Model */ = {

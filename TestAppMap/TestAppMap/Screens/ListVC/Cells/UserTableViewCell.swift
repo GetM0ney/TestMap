@@ -9,9 +9,12 @@ import UIKit
 import Kingfisher
 
 class UserTableViewCell: UITableViewCell {
-  
+  //контанты добавить
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var avatarImageView: UIImageView?
+  
+  static let cellID = "UserTableViewCell"
+  static let nibName = "UserTableViewCell"
   
   var model: User?
   
@@ -19,17 +22,13 @@ class UserTableViewCell: UITableViewCell {
     super.awakeFromNib()
   }
   
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
+  override func prepareForReuse() {
+    //
   }
   
   func updateCell() {
     guard let owner = model?.owner else { return }
     nameLabel.text = owner.name + " " + owner.surname
     avatarImageView?.kf.setImage(with: URL(string: owner.foto))
-
   }
-  
 }

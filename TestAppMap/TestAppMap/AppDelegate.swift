@@ -15,7 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     self.window = UIWindow(frame: UIScreen.main.bounds)
-    window?.rootViewController = UIStoryboard(name: "UserListViewController", bundle: nil).instantiateInitialViewController()
+    let userListViewModel = UserListViewModel()
+    userListViewModel.networkManager = NetworkManager()
+    guard let controller = UIStoryboard.init(name: "UserListViewController",
+                                             bundle: Bundle.main).instantiateViewController(withIdentifier: "UserListViewController") as? UserListViewController else { return false}
+    controller.viewModel = userListViewModel
+    window?.rootViewController = UINavigationController(rootViewController: controller)
     window?.makeKeyAndVisible()
     return true
   }
