@@ -11,15 +11,13 @@ import MapKit
 final class DetailsViewModel {
  
   var networkManager: NetworkManager!
-  var vehiclesLocationData: [MapObjectData]?
+  var vehiclesLocationDataDictionary = [Int: CLLocationCoordinate2D]()
   var usersVehicleData: User?
   var vehiclesWithLocation = [VehicleWithLocation]()
   
-  init(networkManager: NetworkManager!, vehiclesLocationData: [MapObjectData]? = nil, usersVehicleData: User? = nil, vehiclesWithLocation: [VehicleWithLocation] = [VehicleWithLocation]()) {
+  init(networkManager: NetworkManager!, usersVehicleData: User?) {
     self.networkManager = networkManager
-    self.vehiclesLocationData = vehiclesLocationData
     self.usersVehicleData = usersVehicleData
-    self.vehiclesWithLocation = vehiclesWithLocation
   }
   
   func getLocationData(completion: @escaping (_ error: Error?) -> Void) {
@@ -29,7 +27,11 @@ final class DetailsViewModel {
     networkManager.request(fromURL: url) { (result: Result<VehicleLocation, Error>) in
       switch result {
         case .success(let locations):
-          self.vehiclesLocationData = locations.data
+          locations.data.forEach { location in
+            self.vehiclesLocationDataDictionary.updateValue(CLLocationCoordinate2D(latitude: location.lat,
+                                                                                   longitude: location.lon),
+                                                            forKey: location.vehicleid)
+          }
           self.createVehiclesWithLocation()
           completion(nil)
         case .failure(let error):
@@ -40,11 +42,9 @@ final class DetailsViewModel {
   }
   
   func createVehiclesWithLocation() {
+    vehiclesWithLocation.removeAll()
     usersVehicleData?.vehicles?.forEach({ item in
-      guard let locationsData = vehiclesLocationData else { return }
-      let index = locationsData.firstIndex { locationData in item.vehicleid == locationData.vehicleid }
-      if let index = index {
-        let coordinates = CLLocationCoordinate2D(latitude: locationsData[index].lat, longitude: locationsData[index].lon)
+      if let coordinates = vehiclesLocationDataDictionary[item.vehicleid] {
         let vehicleWithLocation = VehicleWithLocation(coordinate: coordinates, vehicle: item)
         vehiclesWithLocation.append(vehicleWithLocation)
       }

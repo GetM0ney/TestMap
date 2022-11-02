@@ -42,11 +42,10 @@ class DetailUserViewController: UIViewController {
     DispatchQueue.main.async {
       self.timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true, block: { timer in
         self.locationsViewModel?.getLocationData { error in
+          self.mapView.removeAnnotations(self.mapView.annotations)
+          self.addVehicleAnnotations()
           if let error = error {
             self.showError(error: error)
-          } else {
-            self.mapView.removeAnnotations(self.mapView.annotations)
-            self.addVehicleAnnotations()
           }
         }
       })

@@ -54,8 +54,7 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
           let controller = UIStoryboard.init(name: "DetailUserViewController",
                                              bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailUserViewController")
           as? DetailUserViewController else { return }
-    controller.locationsViewModel = DetailsViewModel(networkManager: viewModel.networkManager)
-    controller.locationsViewModel?.usersVehicleData = user
+    controller.locationsViewModel = DetailsViewModel(networkManager: viewModel.networkManager, usersVehicleData: user)
     controller.locationsViewModel?.getLocationData {error in
       if let error = error {
         self.showError(error: error)
