@@ -19,6 +19,8 @@ class NetworkManager {
     }
   }
   
+  var currentTask: URLSessionDataTask?
+ 
   /// These are the errors this class might return
   enum ManagerErrors: Error {
     case invalidResponse
@@ -43,7 +45,7 @@ class NetworkManager {
     var request = URLRequest(url: url)
     request.httpMethod = httpMethod.method
     
-    let urlSession = URLSession.shared.dataTask(with: request) { data, response, error in
+    let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
       if let error = error {
         completionOnMain(.failure(error))
         return
@@ -53,7 +55,6 @@ class NetworkManager {
       if !(200..<300).contains(urlResponse.statusCode) {
         debugPrint("Invalid status code")
         return completionOnMain(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
-        
       }
       
       guard let data = data else { return }
@@ -65,7 +66,8 @@ class NetworkManager {
         completionOnMain(.failure(error))
       }
     }
-    
-    urlSession.resume()
+    if let currentTask = currentTask { currentTask.cancel() }
+    self.currentTask = dataTask
+    dataTask.resume()
   }
 }
