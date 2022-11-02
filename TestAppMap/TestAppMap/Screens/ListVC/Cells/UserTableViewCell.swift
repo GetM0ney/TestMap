@@ -20,6 +20,7 @@ class UserTableViewCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     avatarImageView?.image = nil
+    avatarImageView?.kf.cancelDownloadTask()
     nameLabel.text = ""
   }
   

@@ -19,6 +19,7 @@ class DetailUserViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    startTimer()
     self.mapView.delegate = self
   }
   
@@ -115,7 +116,7 @@ extension DetailUserViewController: CLLocationManagerDelegate {
 extension DetailUserViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard let annotation = annotation as? VehicleWithLocation else { return nil }
-    var markerView :MKMarkerAnnotationView
+    let markerView: MKMarkerAnnotationView
     let viewID = "markerView"
     if let view = mapView.dequeueReusableAnnotationView(withIdentifier: viewID) as? MKMarkerAnnotationView {
       view.annotation = annotation
@@ -123,7 +124,7 @@ extension DetailUserViewController: MKMapViewDelegate {
     } else {
       markerView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: viewID)
       markerView.canShowCallout = true
-      markerView.calloutOffset = CGPoint(x: 0, y: 0)
+      markerView.calloutOffset = .zero
       markerView.rightCalloutAccessoryView = UIButton(type: .infoDark)
     }
     return markerView
@@ -161,8 +162,9 @@ extension DetailUserViewController: MKMapViewDelegate {
   
   
   func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-    guard let controller = UIStoryboard.init(name: "VehicleDescriptionViewController",
-                                             bundle: Bundle.main).instantiateViewController(withIdentifier: "VehicleDescriptionViewController") as? VehicleDescriptionViewController else { return }
+    let vcName = "VehicleDescriptionViewController"
+    guard let controller = UIStoryboard.init(name: vcName,
+                                             bundle: Bundle.main).instantiateViewController(withIdentifier: vcName) as? VehicleDescriptionViewController else { return }
     let annotation = view.annotation as! VehicleWithLocation
     controller.vehicleModel = annotation.vehicle
     present(controller, animated: true)

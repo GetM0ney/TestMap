@@ -34,7 +34,7 @@ class UserListViewController: UIViewController {
 extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let users = viewModel.users,
-          let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.cellID) as? UserTableViewCell else { return  UITableViewCell()}
+          let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.cellID) as? UserTableViewCell else { return  UITableViewCell() }
     cell.model = users[indexPath.row]
     cell.updateCell()
     return cell
@@ -54,12 +54,11 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
           let controller = UIStoryboard.init(name: "DetailUserViewController",
                                              bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailUserViewController")
           as? DetailUserViewController else { return }
-    controller.locationsViewModel = DetailsViewModel(networkManager: self.viewModel.networkManager)
+    controller.locationsViewModel = DetailsViewModel(networkManager: viewModel.networkManager)
     controller.locationsViewModel?.usersVehicleData = user
     controller.locationsViewModel?.getLocationData {error in
       if let error = error {
         self.showError(error: error)
-        return
       } else {
         self.navigationController?.pushViewController(controller, animated: true)
       }

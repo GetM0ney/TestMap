@@ -10,8 +10,8 @@ import Foundation
 extension JSONSerialization {
   
   static func loadJSON(withFilename filename: String) throws -> Any? {
-    let fm = FileManager.default
-    let urls = fm.urls(for: .documentDirectory, in: .userDomainMask)
+   
+    let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     if let url = urls.first {
       var fileURL = url.appendingPathComponent(filename)
       fileURL = fileURL.appendingPathExtension("json")
@@ -19,12 +19,12 @@ extension JSONSerialization {
       let jsonObject = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers, .mutableLeaves])
       return jsonObject
     }
+    
     return nil
   }
   
-  static func save(jsonObject: Any, toFilename filename: String) throws -> Bool{
-    let fm = FileManager.default
-    let urls = fm.urls(for: .documentDirectory, in: .userDomainMask)
+  static func save(jsonObject: Any, toFilename filename: String) throws -> Bool {
+    let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     if let url = urls.first {
       var fileURL = url.appendingPathComponent(filename)
       fileURL = fileURL.appendingPathExtension("json")

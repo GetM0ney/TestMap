@@ -13,8 +13,7 @@ class UserDefaultsManager {
   let keyForDate = "RequestDay"
   
   func isDataUpdateNeeded() -> Bool {
-    if let requestDateString = UserDefaults.standard.object(forKey: keyForDate) as? String,
-       Date().getDayMonthString() != requestDateString {
+    if let requestDateString = UserDefaults.standard.object(forKey: keyForDate) as? String, Date().getDayMonthString() != requestDateString {
       return true
     } else {
       return false

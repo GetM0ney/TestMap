@@ -51,7 +51,7 @@ class NetworkManager {
       
       guard let urlResponse = response as? HTTPURLResponse else { return completionOnMain(.failure(ManagerErrors.invalidResponse)) }
       if !(200..<300).contains(urlResponse.statusCode) {
-        print("Invalid status code")
+        debugPrint("Invalid status code")
         return completionOnMain(.failure(ManagerErrors.invalidStatusCode(urlResponse.statusCode)))
         
       }
