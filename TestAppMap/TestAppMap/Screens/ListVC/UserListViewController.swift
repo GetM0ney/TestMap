@@ -52,7 +52,8 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let user = viewModel.users?[indexPath.row],
           let controller = UIStoryboard.init(name: "DetailUserViewController",
-                                             bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailUserViewController") as? DetailUserViewController else { return }
+                                             bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailUserViewController")
+          as? DetailUserViewController else { return }
     controller.locationsViewModel = DetailsViewModel(networkManager: self.viewModel.networkManager)
     controller.locationsViewModel?.usersVehicleData = user
     controller.locationsViewModel?.getLocationData {error in

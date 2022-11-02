@@ -17,7 +17,7 @@ final class UserListViewModel {
   }
   
   func getUsersData(completion: @escaping (_ error: Error?) -> Void) {
-    if let requestDateString = UserDefaults.standard.object(forKey: "RequestDay") as? String, Date().getDayMonthString() != requestDateString {
+    if UserDefaultsManager().isDataUpdateNeeded() {
       requestData { error in completion(error) }
     } else {
       guard let data = DataManager.load("UserList") else { return }
@@ -37,7 +37,7 @@ final class UserListViewModel {
         case .success(let list):
           self.users = list.data.filter({ $0.owner != nil })
           DataManager.save(list, with: "UserList")
-          UserDefaults.standard.set(Date().getDayMonthString(), forKey: "RequestDay")
+          UserDefaultsManager().setDate()
           completion(nil)
         case .failure(let error):
           completion(error)

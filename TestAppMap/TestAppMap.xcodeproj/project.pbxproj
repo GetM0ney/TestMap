@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0330B4AF29124D3C00F49981 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330B4AE29124D3C00F49981 /* UserDefaultsManager.swift */; };
 		03606A4029105BBE006EE4C6 /* DetailUserViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03606A3F29105BBE006EE4C6 /* DetailUserViewController.storyboard */; };
 		03606A42291088DD006EE4C6 /* VehicleWithLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03606A41291088DD006EE4C6 /* VehicleWithLocation.swift */; };
 		03606A492910A43C006EE4C6 /* VehicleDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03606A472910A43C006EE4C6 /* VehicleDescriptionViewController.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0330B4AE29124D3C00F49981 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		03606A3F29105BBE006EE4C6 /* DetailUserViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DetailUserViewController.storyboard; sourceTree = "<group>"; };
 		03606A41291088DD006EE4C6 /* VehicleWithLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleWithLocation.swift; sourceTree = "<group>"; };
 		03606A472910A43C006EE4C6 /* VehicleDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDescriptionViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			children = (
 				03C22C00290D5A6E0020C293 /* NetworkManager.swift */,
 				03606A512910B811006EE4C6 /* DataManager.swift */,
+				0330B4AE29124D3C00F49981 /* UserDefaultsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				03C22BE3290D59060020C293 /* AppDelegate.swift in Sources */,
 				03C22C1F290E92980020C293 /* UserListViewController.swift in Sources */,
 				03C22C39291033CC0020C293 /* UserTableViewCell.swift in Sources */,
+				0330B4AF29124D3C00F49981 /* UserDefaultsManager.swift in Sources */,
 				03606A42291088DD006EE4C6 /* VehicleWithLocation.swift in Sources */,
 				03606A4E2910ABA2006EE4C6 /* UIColor+Hex.swift in Sources */,
 				03C22BFF290D5A270020C293 /* User.swift in Sources */,

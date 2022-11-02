@@ -45,14 +45,7 @@ final class DetailsViewModel {
       let index = locationsData.firstIndex { locationData in item.vehicleid == locationData.vehicleid }
       if let index = index {
         let coordinates = CLLocationCoordinate2D(latitude: locationsData[index].lat, longitude: locationsData[index].lon)
-        let vehicleWithLocation = VehicleWithLocation(vehicleid: item.vehicleid,
-                                                      make: item.make,
-                                                      model: item.model,
-                                                      year: item.year,
-                                                      color: item.color,
-                                                      vin: item.vin,
-                                                      foto: item.foto,
-                                                      coordinate: coordinates)
+        let vehicleWithLocation = VehicleWithLocation(coordinate: coordinates, vehicle: item)
         vehiclesWithLocation.append(vehicleWithLocation)
       }
     })

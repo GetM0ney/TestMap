@@ -164,13 +164,7 @@ extension DetailUserViewController: MKMapViewDelegate {
     guard let controller = UIStoryboard.init(name: "VehicleDescriptionViewController",
                                              bundle: Bundle.main).instantiateViewController(withIdentifier: "VehicleDescriptionViewController") as? VehicleDescriptionViewController else { return }
     let annotation = view.annotation as! VehicleWithLocation
-    controller.vehicleModel = Vehicle(vehicleid: annotation.vehicleid,
-                                      make: annotation.make,
-                                      model: annotation.model,
-                                      year: annotation.year,
-                                      color: annotation.color,
-                                      vin: annotation.vin,
-                                      foto: annotation.foto)
+    controller.vehicleModel = annotation.vehicle
     present(controller, animated: true)
   }
 }
