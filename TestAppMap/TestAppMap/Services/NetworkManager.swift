@@ -46,6 +46,7 @@ class NetworkManager {
     request.httpMethod = httpMethod.method
     
     let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+      self.currentTask = nil
       if let error = error {
         completionOnMain(.failure(error))
         return
